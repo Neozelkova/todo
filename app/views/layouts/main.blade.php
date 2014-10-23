@@ -49,8 +49,9 @@
         </div>
     </footer>
 
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
+    {{ HTML::script('js/vendor/jquery.js')}}
+    {{ HTML::script('js/foundation.min.js')}}
+    {{ HTML::script('js/app.js')}}
     <script>
       $(document).foundation();
     </script>

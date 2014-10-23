@@ -4,7 +4,7 @@ class TodoListController extends \BaseController {
 
 	public function __construct()
 	{
-		$this->beforeFilter('csrf', array('on' => 'post'));
+		$this->beforeFilter('csrf', array('on' => ['post', 'put']));
 	}
 
 	/**
@@ -86,6 +86,8 @@ class TodoListController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$list = TodoList::findOrFail($id);
+		return View::make('todos.edit')->withList($list);
 	}
 
 
@@ -97,7 +99,27 @@ class TodoListController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		
+		// define rules
+		$rules = array(
+				'name' => array('required', 'unique:todo_lists')
+			);
+		// pass input to validator
+		$validator = Validator::make(Input::all(), $rules);
+
+		// test if input is valid
+		if($validator->fails()){
+
+			return Redirect::route('todos.edit', $id)->withErrors($validator)->withInput();
+		}
+
+
+		$name = Input::get('name');
+		$list = TodoList::findOrFail($id);
+		$list->name = $name;
+		$list->update();
+
+		return Redirect::route('todos.index')->withMessage('List was updated!');
 	}
 
 
@@ -110,6 +132,9 @@ class TodoListController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		$todo_list = TodoList::findOrFail($id)->delete();
+
+		return Redirect::route('todos.index')->withMessage('Item Deleted');
 	}
 
 
