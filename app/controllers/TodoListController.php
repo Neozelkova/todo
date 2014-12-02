@@ -21,7 +21,7 @@ class TodoListController extends \BaseController {
 
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Create a todo list
 	 *
 	 * @return Response
 	 */
@@ -33,7 +33,7 @@ class TodoListController extends \BaseController {
 
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store the todo list in my database
 	 *
 	 * @return Response
 	 */

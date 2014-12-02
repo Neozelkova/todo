@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('content')
-	<h2>All Todo Lists</h2>
+	<h2>All The Todo Lists</h2>
 
 	
 		@foreach ($todo_lists as $list)
